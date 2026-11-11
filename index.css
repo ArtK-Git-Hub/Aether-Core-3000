@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cinzel", serif;
+
+  --color-void: #020617;
+  --color-ether: #6d28d9;
+  --color-spectral: #f8fafc;
+  
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-panel: rgb(var(--panel-bg));
+  --color-border: rgb(var(--panel-border));
+  --color-accent: rgb(var(--accent));
+}
+
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 2 6 23;
+    --panel-bg: 0 0 0 / 0.02;
+    --panel-border: 0 0 0 / 0.1;
+    --accent: 109 40 217;
+  }
+
+  .dark {
+    --background: 2 6 23;
+    --foreground: 248 250 252;
+    --panel-bg: 255 255 255 / 0.02;
+    --panel-border: 255 255 255 / 0.05;
+    --accent: 109 40 217;
+  }
+
+  body {
+    @apply bg-[rgb(var(--background))] text-[rgb(var(--foreground))] min-h-screen transition-colors duration-500;
+    font-family: var(--font-sans);
+    cursor: crosshair;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(var(--accent), 0.15) 0%, transparent 70%),
+        radial-gradient(circle at 10% 10%, rgba(var(--foreground), 0.05) 0%, transparent 30%);
+  }
+}
+
+@layer components {
+  .ether-panel {
+    @apply backdrop-blur-2xl transition-all duration-1000;
+    background: rgb(var(--panel-bg));
+    border: 1px solid rgb(var(--panel-border));
+    box-shadow: 0 0 40px rgba(var(--accent), 0.05);
+  }
+
+  .ether-panel:hover {
+    @apply border-foreground/20;
+    background: rgb(var(--panel-bg));
+    box-shadow: 0 0 60px rgba(var(--accent), 0.1);
+  }
+
+  .spectral-title {
+    @apply font-display tracking-[1.5em] uppercase;
+    background: linear-gradient(to right, rgb(var(--foreground)), rgba(var(--foreground), 0.6), rgb(var(--foreground)));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 10s linear infinite;
+  }
+
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  .singularity-button {
+    @apply bg-transparent border border-foreground/10 px-8 py-4 relative overflow-hidden transition-all duration-500 tracking-[0.3em] text-[0.85rem] uppercase;
+    color: rgb(var(--foreground));
+  }
+
+  .singularity-button:hover {
+    @apply border-foreground/100;
+    text-shadow: 0 0 10px rgb(var(--foreground));
+  }
+
+  .chromatic-aberration {
+    text-shadow: 2px 0 0 rgba(255,0,0,0.1), -2px 0 0 rgba(0,255,255,0.1);
+  }
+
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .animate-shake {
+    animation: shake 0.2s ease-in-out 0s 2;
+  }
+}
